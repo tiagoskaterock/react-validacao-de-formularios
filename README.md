@@ -21,6 +21,7 @@ O objetivo principal deste projeto é explorar e praticar diferentes técnicas d
 
 - React
 - Formik
+- Yup
 - JavaScript/ES6
 
 ## ⚙️ Instalação
