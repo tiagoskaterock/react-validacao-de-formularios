@@ -1,6 +1,7 @@
-import React from 'react';
+import React from 'react'
 import { Formik } from 'formik'
 import Campo from './Campo'
+import * as yup from 'yup'
 
 const validarEmail = (email) => {
   const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -8,6 +9,23 @@ const validarEmail = (email) => {
 };
 
 const AdicionaCliente = () => {
+
+  const esquema = yup.object({
+    nome: 
+      yup.string()
+      .required('O campo nome é obrigatório')
+      .min(5, 'O nome de ter no mínimo 5 caracteres')
+      .max(30, 'O nome de ter no máximo 30 caracteres'),
+    email:
+      yup.string()
+      .email('O campo email deve ser um email válido')
+      .required('O campo email é obrigatório'),
+    nascimento:
+      yup.date()
+      .required('A data de nascimento é obrigatória')  
+      .max(new Date(), 'Você não pode ter nascido no futuro')  
+  })
+
   return (
     <>
       <h1>Cadastro de Clientes</h1>
@@ -17,23 +35,8 @@ const AdicionaCliente = () => {
           nome:'Tiago Lemes', 
           email: 'tiagolemespalhano@gmail.com', 
           nascimento: '1984-10-25' } }
-        validate={(values) => {
-          const errors = {}
-          if(!values.nome) {
-            errors.nome = 'O campo nome é obrigatório'
-          }
-          if(!values.email) {
-            errors.email = 'O campo email é obrigatório'
-          }
-          else if(!validarEmail(values.email)) {
-            errors.email = 'O campo email é inválido'
-          }
-          if(!values.nascimento) {
-            errors.nascimento = 'O campo nascimento é obrigatório'
-          }
-          return errors
-        }}
-        onSubmit={ (values) => {alert(JSON.stringify(values)) } }
+        validationSchema={esquema}
+        onSubmit={ () => {alert('Dados enviados com suesso') } }
       >
 
         {(props) => (
