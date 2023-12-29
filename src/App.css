@@ -11,6 +11,10 @@ body {
   font-size: .8rem;
 }
 
+.is-invalid {
+  border-color: red;
+}
+
 .container {
   padding: 0 30px;
 }
